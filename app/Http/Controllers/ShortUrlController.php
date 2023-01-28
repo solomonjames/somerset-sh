@@ -59,7 +59,7 @@ class ShortUrlController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ShortUrl $shortUrl,  ShortUrlDeleteAction $shortUrlDeleteAction)
+    public function destroy(ShortUrl $shortUrl, ShortUrlDeleteAction $shortUrlDeleteAction)
     {
         $shortUrlDeleteAction->execute($shortUrl);
     }

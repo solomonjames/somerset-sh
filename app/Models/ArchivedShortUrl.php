@@ -32,6 +32,6 @@ class ArchivedShortUrl extends Model
         'unique_hits',
         'total_hits',
         'original_created_at',
-        'original_updated_at'
+        'original_updated_at',
     ];
 }
