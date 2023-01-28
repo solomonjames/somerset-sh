@@ -3,13 +3,20 @@
 namespace App\Actions;
 
 use App\Models\ShortUrl;
+use Illuminate\Support\Facades\DB;
 
 class ShortUrlDeleteAction
 {
-    public function execute(ShortUrl $shortUrl)
+    public function __construct(private readonly ArchiveShortUrlAction $archiveShortUrlAction)
     {
-        // Archive the old one before deleting...
+    }
 
-        $shortUrl->deleteOrFail();
+    public function execute(ShortUrl $shortUrl): void
+    {
+        DB::transaction(function () use ($shortUrl) {
+            $this->archiveShortUrlAction->execute($shortUrl);
+
+            $shortUrl->delete();
+        });
     }
 }

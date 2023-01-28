@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int    $id
  * @property string $short_code
  * @property string $long_url
  * @property int    $unique_hits
