@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Actions\ShortCodeGeneratorAction;
 use App\Actions\ShortUrlCreateAction;
+use App\Actions\ShortUrlDeleteAction;
+use App\Actions\ShortUrlUpdateAction;
 use App\Http\Requests\StoreShortUrlRequest;
 use App\Http\Requests\UpdateShortUrlRequest;
 use App\Http\Resources\ShortUrlResource;
@@ -16,7 +18,7 @@ class ShortUrlController extends Controller
      */
     public function index()
     {
-        return new ShortUrlResource(ShortUrl::paginate(50));
+        return new ShortUrlResource(ShortUrl::cursorPaginate(50));
     }
 
     /**
@@ -39,35 +41,27 @@ class ShortUrlController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\ShortUrl  $shortUrl
-     * @return \Illuminate\Http\Response
      */
     public function show(ShortUrl $shortUrl)
     {
-        //
+        return new ShortUrlResource($shortUrl);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateShortUrlRequest  $request
-     * @param  \App\Models\ShortUrl  $shortUrl
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateShortUrlRequest $request, ShortUrl $shortUrl)
+    public function update(UpdateShortUrlRequest $request, ShortUrl $shortUrl, ShortUrlUpdateAction $shortUrlUpdateAction)
     {
-        //
+        $shortUrl = $shortUrlUpdateAction->execute($shortUrl, $request->validated('long_url'));
+
+        return new ShortUrlResource($shortUrl);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ShortUrl  $shortUrl
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(ShortUrl $shortUrl)
+    public function destroy(ShortUrl $shortUrl,  ShortUrlDeleteAction $shortUrlDeleteAction)
     {
-        //
+        $shortUrlDeleteAction->execute($shortUrl);
     }
 }
