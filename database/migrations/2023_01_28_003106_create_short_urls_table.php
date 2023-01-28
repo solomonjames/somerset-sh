@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('short_code')->unique();
             $table->string('long_url');
-            $table->unsignedBigInteger('unique_hits');
-            $table->unsignedBigInteger('total_hits');
+            $table->unsignedBigInteger('unique_hits')->default(0);
+            $table->unsignedBigInteger('total_hits')->default(0);
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class GeneratorServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(UniqueIdGenerator::class, static function ($app) {
-            return new UniqueIdGenerator($app['config']['generators']['short_code']['max_length']);
+            return new UniqueIdGenerator(maxCodeLength: $app['config']['generators']['short_code']['max_length']);
         });
     }
 
