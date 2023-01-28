@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('short-urls', Controllers\ShortUrlController::class)
-    ->withoutMiddleware(['web']);
+Route::get('/', static function () {
+    return view('welcome');
+});

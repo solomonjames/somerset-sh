@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\ShortCodeGeneratorAction;
+use App\Actions\ShortUrlCreateAction;
 use App\Http\Requests\StoreShortUrlRequest;
 use App\Http\Requests\UpdateShortUrlRequest;
 use App\Http\Resources\ShortUrlResource;
@@ -21,14 +22,17 @@ class ShortUrlController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreShortUrlRequest $request, ShortCodeGeneratorAction $shortCodeGeneratorAction)
+    public function store(StoreShortUrlRequest $request, ShortUrlCreateAction $shortUrlCreateAction)
     {
-        $shortCode = $shortCodeGeneratorAction->execute();
+        $longUrl = $request->validated('long_url');
 
-        $shortUrl = ShortUrl::create([
-            'short_code' => $shortCode,
-            'long_url' => $request->validated('long_url'),
-        ]);
+        // Lets just return a found entry, so the user can move on and use the short code.
+        // Alternatively, we could return an error status, but that isn't as helpful.
+        if ($shortUrl = ShortUrl::longUrl($longUrl)->first()) {
+            return new ShortUrlResource($shortUrl);
+        }
+
+        $shortUrl = $shortUrlCreateAction->execute($longUrl);
 
         return new ShortUrlResource($shortUrl);
     }

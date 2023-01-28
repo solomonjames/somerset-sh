@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,4 +24,9 @@ class ShortUrl extends Model
         'short_code',
         'long_url',
     ];
+
+    protected function scopeLongUrl(Builder $query, string $longUrl): Builder
+    {
+        return $query->where('long_url', $longUrl);
+    }
 }
