@@ -8,10 +8,10 @@ class IncrementVisitCountsAction
 {
     public function execute(ShortUrl $shortUrl, bool $isUnique)
     {
-        ++$shortUrl->total_hits;
+        $shortUrl->total_hits++;
 
         if ($isUnique) {
-            ++$shortUrl->unique_hits;
+            $shortUrl->unique_hits++;
         }
 
         $shortUrl->save();

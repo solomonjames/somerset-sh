@@ -2,23 +2,17 @@
 
 namespace App\Generators;
 
+use App\Models\UniqueId;
+
 class UniqueIdGenerator
 {
-    private int $maxInt;
-
-    public function __construct(int $maxCodeLength)
-    {
-        $this->maxInt = 62 ** $maxCodeLength - 1;
-    }
-
+    /**
+     * This is a wrapper for the mechanism we are using to generator a unique ID.
+     * Seeing as this could change with scale, we are abstracting it away into this
+     * class, rather than using the model directly.
+     */
     public function make(): int
     {
-        try {
-            return random_int(1, $this->maxInt);
-        } catch (\Exception) {
-            // If for some reason this fails to generate a random number,
-            // we can try one more time before letting the exception bubble up.
-            return random_int(1, $this->maxInt);
-        }
+        return UniqueId::create()->id;
     }
 }

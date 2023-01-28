@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Generators\UniqueIdGenerator;
+use App\Generators\ShortCodeGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class GeneratorServiceProvider extends ServiceProvider
@@ -12,8 +12,8 @@ class GeneratorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UniqueIdGenerator::class, static function ($app) {
-            return new UniqueIdGenerator(maxCodeLength: $app['config']['generators']['short_code']['max_length']);
+        $this->app->bind(ShortCodeGenerator::class, static function ($app) {
+            return new ShortCodeGenerator(characterSet: $app['config']['generators.short_code.character_set']);
         });
     }
 

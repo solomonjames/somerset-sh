@@ -11,7 +11,7 @@ class ShortCodeGeneratorAction
     {
     }
 
-    public function execute()
+    public function execute(): string
     {
         $uniqueId = $this->uniqueIdGenerator->make();
 
