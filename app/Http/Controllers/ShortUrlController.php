@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\ShortCodeGeneratorAction;
 use App\Actions\ShortUrlCreateAction;
 use App\Actions\ShortUrlDeleteAction;
 use App\Actions\ShortUrlUpdateAction;
@@ -18,7 +17,7 @@ class ShortUrlController extends Controller
      */
     public function index()
     {
-        return new ShortUrlResource(ShortUrl::cursorPaginate(50));
+        return new ShortUrlResource(ShortUrl::cursorPaginate(config('api.pagination.default_size')));
     }
 
     /**

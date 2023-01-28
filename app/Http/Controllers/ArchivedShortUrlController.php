@@ -12,7 +12,7 @@ class ArchivedShortUrlController extends Controller
      */
     public function index()
     {
-        return new ArchivedShortUrlResource(ArchivedShortUrl::cursorPaginate(50));
+        return new ArchivedShortUrlResource(ArchivedShortUrl::cursorPaginate(config('api.pagination.default_size')));
     }
 
     /**
