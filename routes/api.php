@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('short-urls', Controllers\ShortUrlController::class);
+
+Route::apiResource('archived-short-urls', Controllers\ArchivedShortUrlController::class)
+    ->only(['index', 'show']);
