@@ -9,10 +9,8 @@ class ShortUrlSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         ShortUrl::factory()
             ->count(100)
