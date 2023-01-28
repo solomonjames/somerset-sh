@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ShortUrl;
 use Illuminate\Database\Seeder;
 
 class ShortUrlSeeder extends Seeder
@@ -13,6 +14,13 @@ class ShortUrlSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ShortUrl::factory()
+            ->count(100)
+            ->visits()
+            ->create();
+
+        ShortUrl::factory()
+            ->count(100)
+            ->create();
     }
 }
