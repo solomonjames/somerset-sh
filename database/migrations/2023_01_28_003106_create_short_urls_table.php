@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('short_urls', static function (Blueprint $table) {
-            $table->id();
-            $table->string('short_code')->unique();
+            $table->string('short_code')->primary();
             $table->text('long_url');
             $table->unsignedBigInteger('unique_hits')->default(0);
             $table->unsignedBigInteger('total_hits')->default(0);

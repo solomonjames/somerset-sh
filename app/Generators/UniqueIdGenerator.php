@@ -11,8 +11,14 @@ class UniqueIdGenerator
         $this->maxInt = 62 ** $maxCodeLength - 1;
     }
 
-    public function make()
+    public function make(): int
     {
-        return random_int(1, $this->maxInt);
+        try {
+            return random_int(1, $this->maxInt);
+        } catch (\Exception) {
+            // If for some reason this fails to generate a random number,
+            // we can try one more time before letting the exception bubble up.
+            return random_int(1, $this->maxInt);
+        }
     }
 }
