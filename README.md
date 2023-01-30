@@ -1,6 +1,6 @@
 # Somerset.sh
 
-A simple and headless URL shortening service.
+Named after the tiny bridge in Bermuda, this app is simple and headless URL shortening service.
 
 See a working version live at: [somerset.sh](http://somerset.sh)
 
