@@ -62,5 +62,7 @@ class ShortUrlController extends Controller
     public function destroy(ShortUrl $shortUrl, ShortUrlDeleteAction $shortUrlDeleteAction)
     {
         $shortUrlDeleteAction->execute($shortUrl);
+
+        return response('', 204);
     }
 }
