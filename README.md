@@ -42,9 +42,9 @@ See a working version live at: [somerset.sh](http://somerset.sh)
         larger than it would be, and we do have to read/write session data. I think the tradeoff is
         likely worth it in this case to get the additional metric though.
 3. What happened to the "5 characters in length" requirement?
-    1. Well one thing that hit me, is we want to have the shortest possible URL, and restricting to only 5 characters
+    1. Well one thing that hit me is we want to have the shortest possible URL, and restricting to only 5 characters
         seems to go against that goal.
-    2. Looking at the numbers if we are to limit to only 5 characters then `64^5 - 62^4 = 901_356_496` is a LOT of short codes.
+    2. Looking at the numbers, if we are to limit to only 5 characters then `64^5 - 62^4 = 901_356_496` is a LOT of short codes.
         So it would certainly scale for a long time. `62^4 = 14_776_336` which is still a lot of codes, and the people that get those
         would be really happy customers. Then once you get into the power of 6 and 7, you get to some really high scale.
     3. All that said, how could I have actually implemented that?
@@ -74,13 +74,46 @@ Make sure to use the following headers:
 }
 ```
 
-### Get all short url
+### Archived Short Url Resource
+```json
+{
+    "data": {
+        "id": 1,
+        "short_code": "0",
+        "long_url": "http://www.mayer.org/quo-architecto-architecto-velit",
+        "unique_hits": 52979,
+        "total_hits": 185019,
+        "original_created_at": "2023-01-28 22:04:51",
+        "original_updated_at": "2023-01-28 22:05:36",
+        "created_at": "2023-01-28T22:06:00.000000Z"
+    }
+}
+```
+
+### Cursor Paginated Resource
+```json
+{
+    "data": [],
+    "path": "",
+    "per_page": 50,
+    "next_cursor": null,
+    "next_page_url": null,
+    "prev_cursor": null,
+    "prev_page_url": null
+}
+```
+
+### Get all short urls
 
 `GET /api/short-urls`
+
+**Response**: Cursor paginated resource, with a list of short url resources.
 
 ### Get a specific short url
 
 `GET /api/short-urls/{shortCode}`
+
+**Response**: Short Url Resource
 
 ### Create a short url
 
@@ -116,3 +149,15 @@ Raw JSON Body:
 `DELETE /api/short-urls/{shortCode}`
 
 **Response**: `204 No Content` will be returned if successful.
+
+### Get all archived short urls
+
+`GET /api/archived-short-urls`
+
+**Response**: Cursor paginated resource, with a list of archived short url resources.
+
+### Get a specific archived short url
+
+`GET /api/archived-short-urls/{id}`
+
+**Response**: Archived Short Url Resource
