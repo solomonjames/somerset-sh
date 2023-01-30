@@ -4,7 +4,13 @@ Named after the tiny bridge in Bermuda, this app is simple and headless URL shor
 
 See a working version live at: [somerset.sh](http://somerset.sh)
 
-## Requirements
+## Prod Requirements
+
+- Postgres
+- Redis
+- PHP 8.2
+
+## Dev Requirements
 
 - Docker & Docker Compose ([colima](https://github.com/abiosoft/colima) is recommended for mac users)
 - PHP 8.2
@@ -53,6 +59,12 @@ See a working version live at: [somerset.sh](http://somerset.sh)
             the DBs auto-increment ID as the unique ID generator, so I could start the IDs at that lower bound.
         2. Then I would need to prevent it from going into 6 characters, which would be possible by checking the newly
             generated code, against the known upper bound and throwing an error at that point.
+4. Why implement your own base62 encoder?
+    1. If you use a typical encoder, like you can achieve with gmp, it could pose a security
+        risk if an attacker can predict the next generated short url. You can check `config/generators.php`
+        and notice that with this custom implementation, I am able to use a randomized ordering
+        of the character set needed for base62 encoding. This would make it a lot harder
+        to guess the next code in the sequence.
 
 ## API Documentation
 
