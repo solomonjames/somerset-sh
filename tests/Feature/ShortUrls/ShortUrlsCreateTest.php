@@ -12,7 +12,7 @@ class ShortUrlsCreateTest extends TestCase
 
     private const CREATE_URL = '/api/short-urls';
 
-    public function test_creating_valid_short_url()
+    public function test_expect_a_200_when_creating_a_valid_short_url()
     {
         $response = $this->postJson(self::CREATE_URL, ['long_url' => 'https://google.com']);
 

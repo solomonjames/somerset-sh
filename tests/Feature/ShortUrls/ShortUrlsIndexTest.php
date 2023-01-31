@@ -13,7 +13,7 @@ class ShortUrlsIndexTest extends TestCase
 
     private const INDEX_URL = '/api/short-urls';
 
-    public function test_listing_short_urls_empty_data()
+    public function test_expect_empty_data_when_there_are_no_short_urls()
     {
         $response = $this->getJson(self::INDEX_URL);
 
@@ -22,7 +22,7 @@ class ShortUrlsIndexTest extends TestCase
             ->assertJsonPath('data', []);
     }
 
-    public function test_listing_short_urls_contains_data()
+    public function test_expect_data_to_contain_records_when_short_urls_exist()
     {
         ShortUrl::factory()->count(2)->create();
 
