@@ -65,4 +65,30 @@ class RedirectTest extends TestCase
 
         Bus::assertDispatched(HandleShortUrlVisit::class, static fn (HandleShortUrlVisit $event) => ! $event->isUnique);
     }
+
+    public function test_expect_visit_to_increment_both_hits_when_first_hit_to_short_code()
+    {
+        /** @var ShortUrl $shortUrl */
+        $shortUrl = ShortUrl::factory()->create();
+        $originalTotalHits = $shortUrl->total_hits;
+        $originalUniqueHits = $shortUrl->unique_hits;
+
+        $this->get(sprintf('/%s', $shortUrl->short_code));
+
+        $this->assertEquals($originalTotalHits + 1, $shortUrl->refresh()->total_hits);
+        $this->assertEquals($originalUniqueHits + 1, $shortUrl->refresh()->unique_hits);
+    }
+
+    public function test_expect_visit_to_increment_total_hits_when_already_hit_the_short_code()
+    {
+        /** @var ShortUrl $shortUrl */
+        $shortUrl = ShortUrl::factory()->create();
+        $originalTotalHits = $shortUrl->total_hits;
+
+        $this->withSession([
+            $shortUrl->short_code => 1
+        ])->get(sprintf('/%s', $shortUrl->short_code));
+
+        $this->assertEquals($originalTotalHits + 1, $shortUrl->refresh()->total_hits);
+    }
 }
