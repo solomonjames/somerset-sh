@@ -51,6 +51,14 @@ class ShortUrlController extends Controller
      */
     public function update(UpdateShortUrlRequest $request, ShortUrl $shortUrl, ShortUrlUpdateAction $shortUrlUpdateAction)
     {
+        // If for some reason the exact same long_url is provided, we could simply return them
+        // the existing record, or we could just use it as a way to reset the hit counts.
+        // For now, I think it would make sense to just leave the record alone and return the
+        // current state.
+        if ($request->validated('long_url') === $shortUrl->long_url) {
+            return new ShortUrlResource($shortUrl);
+        }
+
         $shortUrl = $shortUrlUpdateAction->execute($shortUrl, $request->validated('long_url'));
 
         return new ShortUrlResource($shortUrl);
