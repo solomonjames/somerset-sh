@@ -35,6 +35,13 @@ See a working version live at: [somerset.sh](http://somerset.sh)
 9. Lastly we need to run Laravel Horizon to consume any background events.
     1. `./vendor/bin/sail artisan queue:work`
 
+## Tests
+
+You can run the test suite via artisan:
+```bash
+$ sail artisan test
+```
+
 ## Decisions Made
 
 1. Archiving Short URLs when altering or deleting.
