@@ -42,6 +42,8 @@ You can run the test suite via artisan:
 $ sail artisan test
 ```
 
+You will find the test names to follow the convention of "expect X when Y"
+
 ## Decisions Made
 
 1. Archiving Short URLs when altering or deleting.
