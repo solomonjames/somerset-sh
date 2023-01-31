@@ -19,7 +19,7 @@ class RedirectTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_expect_an_a_redirect_when_using_valid_short_code()
+    public function test_expect_a_redirect_when_using_valid_short_code()
     {
         /** @var ShortUrl $shortUrl */
         $shortUrl = ShortUrl::factory()->create();
